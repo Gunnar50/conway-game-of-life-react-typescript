@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { checkNeighbours } from "../../utils/checkNeighbours";
 import Cell, { CellState } from "../Cell/Cell";
+import Nav from "../Nav/Nav";
 import "./grid.css";
 
 export type GridState = CellState[][];
-const speed = 100;
+
+const initialSpeed = 100;
 
 interface GridProps {
 	numRows: number;
@@ -15,6 +17,7 @@ function Grid({ numRows, numCols }: GridProps) {
 	const [generations, setGenerations] = useState(0);
 	const [grid, setGrid] = useState<GridState>([]);
 	const [startGame, setStartGame] = useState(false);
+	const [speed, setSpeed] = useState(initialSpeed);
 
 	function initializeGrid(): GridState {
 		// initialize the grid state with an empty array
@@ -31,7 +34,6 @@ function Grid({ numRows, numCols }: GridProps) {
 				const newCell: CellState = {
 					position: cellPos,
 					isAlive: false,
-					isDead: true,
 				};
 				// push this new cell to the current row
 				currentRow.push(newCell);
@@ -53,9 +55,9 @@ function Grid({ numRows, numCols }: GridProps) {
 
 				// Apply the Game of Life rules here directly
 				if (cell.isAlive && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
-					return { ...cell, isAlive: false, isDead: true };
+					return { ...cell, isAlive: false };
 				} else if (!cell.isAlive && aliveNeighbors === 3) {
-					return { ...cell, isAlive: true, isDead: false };
+					return { ...cell, isAlive: true };
 				}
 				return cell;
 			})
@@ -74,10 +76,12 @@ function Grid({ numRows, numCols }: GridProps) {
 
 		// Cleanup interval
 		return () => clearInterval(interval);
-	}, [startGame, grid]);
+	}, [startGame, grid, speed]);
 
 	function clearCells(): void {
 		setGrid(initializeGrid());
+		setGenerations(0);
+		setStartGame(false);
 	}
 
 	function handleCellClick(row: number, col: number): void {
@@ -86,7 +90,6 @@ function Grid({ numRows, numCols }: GridProps) {
 			gridRow.map((cell, c) => {
 				if (r === row && c === col) {
 					cell.isAlive = !cell.isAlive;
-					cell.isDead = !cell.isDead;
 				}
 				return cell;
 			})
@@ -98,7 +101,7 @@ function Grid({ numRows, numCols }: GridProps) {
 		const newGrid = grid.map((gridRow) =>
 			gridRow.map((cell) => {
 				if (Math.random() > 0.5) {
-					return { ...cell, isAlive: true, isDead: false };
+					return { ...cell, isAlive: true };
 				}
 				return cell;
 			})
@@ -108,13 +111,21 @@ function Grid({ numRows, numCols }: GridProps) {
 
 	return (
 		<>
-			<button onClick={() => setStartGame(true)}>Start</button>
+			{/* <button onClick={() => setStartGame(true)}>Start</button>
 			<button onClick={() => setStartGame(false)}>Stop</button>
 			<button onClick={nextGeneration}>Next Generation</button>
 			<button onClick={clearCells}>Clear Cells</button>
-			<button onClick={randomizeGrid}>Randomize Grid</button>
+			<button onClick={randomizeGrid}>Randomize Grid</button> */}
+			<Nav
+				startGame={startGame}
+				setStartGame={setStartGame}
+				clearCells={clearCells}
+				randomizeGrid={randomizeGrid}
+				nextGeneration={nextGeneration}
+				setSpeed={setSpeed}
+				generations={generations}
+			/>
 
-			<p>{generations}</p>
 			<div className="grid">
 				{grid.map((row: CellState[], rowIndex: number) => (
 					<div key={rowIndex} className="grid-row">
