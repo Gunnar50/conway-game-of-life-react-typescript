@@ -1,4 +1,4 @@
-# Pathfinding Visualiser React
+# Conway's Game of Life React
 
 ## 🌐 Project
 
