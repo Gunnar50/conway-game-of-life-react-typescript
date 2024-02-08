@@ -9,7 +9,6 @@ export interface CellPosition {
 export interface CellState {
 	position: CellPosition;
 	isAlive: boolean;
-	isDead: boolean;
 }
 
 interface CellProps {
