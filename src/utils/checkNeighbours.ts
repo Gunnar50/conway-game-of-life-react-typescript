@@ -26,7 +26,7 @@ export function checkNeighbours(
 		if (newX >= 0 && newX < grid.length && newY >= 0 && newY < grid[0].length) {
 			const currentNeighbour = grid[newX][newY];
 			// check if the neighbor is alive
-			if (!currentNeighbour.isDead) {
+			if (currentNeighbour.isAlive) {
 				aliveNeighbours += 1;
 			}
 		}
