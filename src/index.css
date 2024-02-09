@@ -7,6 +7,14 @@
 	color: rgba(255, 255, 255, 0.87);
 	background-color: #242424;
 
-	--clr-alive-cell: hsla(184, 77%, 63%, 0.872);
+	--clr-alive-cell: hsl(184, 95%, 55%);
 	--clr-cell-outline: hsl(0, 0%, 25%);
+
+	--clr-visited-node: hsla(188, 100%, 43%, 0.75);
+	--clr-visited-start: hsla(35, 30%, 39%, 0.433);
+	--clr-visited-mid: hsla(270, 53%, 44%, 0.546);
+	--clr-visited-end: hsla(35, 64%, 41%, 0);
+
+	--clr-node-shortest-path-start: hsl(60, 100%, 63%);
+	--clr-node-shortest-path: hsl(35, 100%, 60%);
 }
