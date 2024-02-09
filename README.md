@@ -11,6 +11,12 @@ This is an on going side project to visualise a cellular automaton that is playe
 
 More information can be found on the official website: https://conwaylife.com/
 
+## TODO
+
+- tests for algorithm
+- ability to change grid size
+- add patterns
+
 ## 🔧 Installation and Setup
 
 Clone the repository
