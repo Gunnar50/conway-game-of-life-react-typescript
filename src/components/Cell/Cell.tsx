@@ -24,7 +24,7 @@ function Cell({ cell, onMouseDown }: CellProps) {
 		<div
 			id={cellId}
 			ref={cellRef}
-			className={`cell${cell.isAlive ? " cell-alive" : ""}`}
+			className={`cell${cell.isAlive ? " cell-alive" : " visited"}`}
 			onMouseDown={() => onMouseDown(cell.position.x, cell.position.y)}
 		></div>
 	);
