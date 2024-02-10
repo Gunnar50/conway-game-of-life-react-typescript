@@ -6,15 +6,12 @@ export type GridState = CellState[][];
 
 function App() {
 	const navbarHeight = 150;
-	const textHeight = 60;
 	const [dimensions, setDimensions] = useState({ height: 5, width: 5 });
 
 	useEffect(() => {
 		const calculateDimensions = () => {
-			const height = Math.floor(
-				(window.innerHeight - navbarHeight - textHeight) / 28
-			);
-			const width = Math.floor(window.innerWidth / 25);
+			const height = Math.floor((window.innerHeight - navbarHeight) / 23);
+			const width = Math.floor(window.innerWidth / 20);
 			setDimensions({ height, width });
 		};
 
