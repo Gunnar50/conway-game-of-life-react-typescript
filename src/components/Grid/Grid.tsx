@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { checkNeighbours } from "../../utils/checkNeighbours";
+import { checkNeighbours, randomizeGrid } from "../../utils/checkNeighbours";
+import { applyPattern } from "../../utils/patterns";
 import Cell, { CellState } from "../Cell/Cell";
 import Nav from "../Nav/Nav";
 import "./grid.css";
@@ -97,33 +98,25 @@ function Grid({ numRows, numCols }: GridProps) {
 		setGrid(newGrid);
 	}
 
-	function randomizeGrid() {
-		const newGrid = grid.map((gridRow) =>
-			gridRow.map((cell) => {
-				if (Math.random() > 0.5) {
-					return { ...cell, isAlive: true };
-				}
-				return cell;
-			})
-		);
-		setGrid(newGrid);
+	function handleRandomizeGrid() {
+		setGrid(randomizeGrid(grid));
+	}
+
+	function handlePattern(patternName: string) {
+		setGrid(applyPattern(grid, patternName));
 	}
 
 	return (
 		<>
-			{/* <button onClick={() => setStartGame(true)}>Start</button>
-			<button onClick={() => setStartGame(false)}>Stop</button>
-			<button onClick={nextGeneration}>Next Generation</button>
-			<button onClick={clearCells}>Clear Cells</button>
-			<button onClick={randomizeGrid}>Randomize Grid</button> */}
 			<Nav
 				startGame={startGame}
 				setStartGame={setStartGame}
 				clearCells={clearCells}
-				randomizeGrid={randomizeGrid}
+				randomizeGrid={handleRandomizeGrid}
 				nextGeneration={nextGeneration}
 				setSpeed={setSpeed}
 				generations={generations}
+				handlePattern={handlePattern}
 			/>
 
 			<div className="grid">
