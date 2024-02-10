@@ -36,9 +36,13 @@ export function checkNeighbours(
 }
 
 export function randomizeGrid(grid: GridState) {
-	for (const row of grid) {
-		for (const cell of row) {
-			cell.isAlive = Math.random() > 0.5;
-		}
-	}
+	const newGrid = grid.map((gridRow) =>
+		gridRow.map((cell) => {
+			if (Math.random() > 0.5) {
+				return { ...cell, isAlive: true };
+			}
+			return cell;
+		})
+	);
+	return newGrid;
 }
