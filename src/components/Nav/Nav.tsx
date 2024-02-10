@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { randomizeGrid } from "../../utils/checkNeighbours";
 import "./nav.css";
 
 interface NavProps {
@@ -10,6 +8,7 @@ interface NavProps {
 	nextGeneration: () => void;
 	setSpeed: (value: number) => void;
 	generations: number;
+	handlePattern: (patternName: string) => void;
 }
 
 function NavBar({
@@ -20,12 +19,13 @@ function NavBar({
 	randomizeGrid,
 	setSpeed,
 	generations,
+	handlePattern,
 }: NavProps) {
 	function handleSpeedChange(e: React.ChangeEvent<HTMLSelectElement>) {
 		const value = e.target.value;
 		switch (value) {
 			case "very-slow":
-				setSpeed(400);
+				setSpeed(800);
 				break;
 			case "slow":
 				setSpeed(150);
@@ -35,9 +35,6 @@ function NavBar({
 				break;
 			case "fast":
 				setSpeed(50);
-				break;
-			case "very-fast":
-				setSpeed(5);
 				break;
 
 			default:
@@ -69,6 +66,11 @@ function NavBar({
 						</a>
 					</li>
 					<li>
+						<a href="#" onClick={() => handlePattern("snark loop")}>
+							Pattern
+						</a>
+					</li>
+					<li>
 						<p>Generations: {generations}</p>
 					</li>
 				</ul>
@@ -85,7 +87,6 @@ function NavBar({
 						<option value="slow">Slow</option>
 						<option value="normal">Normal</option>
 						<option value="fast">Fast</option>
-						<option value="very-fast">Very Fast</option>
 					</select>
 				</div>
 			</div>
