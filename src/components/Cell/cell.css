@@ -1,7 +1,6 @@
 .cell {
-	width: 25px;
-	height: 25px;
-	/* outline: 1px solid var(--clr-cell-outline); */
+	width: 20px;
+	height: 20px;
 	display: inline-block;
 	margin: 1px;
 	border-radius: 20%;
@@ -10,92 +9,19 @@
 
 .cell-alive {
 	background-color: var(--clr-alive-cell);
-}
-
-.keep-visited {
-	background-color: var(--clr-visited-end);
-	animation: keepVisitedAnimation 1500ms ease-out forwards;
+	box-shadow: 0 0 3px 0px var(--clr-alive-cell);
 }
 
 .visited {
-	background-color: var(--clr-visited-end);
 	animation: removeVisitedAnimation 1500ms ease-out forwards;
-}
-
-@keyframes keepVisitedAnimation {
-	0% {
-		transform: scale(0.3);
-		background-color: var(--clr-visited-start);
-		border-radius: 50%;
-		box-shadow: 0 0 10px 0px var(--clr-visited-start);
-	}
-
-	50% {
-		background-color: var(--clr-visited-mid);
-		box-shadow: 0 0 5px 3px var(--clr-visited-mid);
-	}
-
-	75% {
-		transform: translateY(-2px);
-		background-color: var(--clr-visited-end);
-		box-shadow: 0 0 5px 2px var(--clr-visited-end);
-	}
-
-	100% {
-		transform: scale(1) translateY(0);
-		box-shadow: none;
-	}
 }
 
 @keyframes removeVisitedAnimation {
 	0% {
-		transform: scale(0.3);
 		background-color: var(--clr-visited-start);
-		border-radius: 50%;
-		box-shadow: 0 0 10px 0px var(--clr-visited-start);
 	}
 
-	25% {
-		background-color: var(--clr-visited-mid);
-		box-shadow: 0 0 5px 3px var(--clr-visited-mid);
-	}
-
-	50% {
-		transform: translateY(-2px);
-		background-color: var(--clr-visited-end);
-		box-shadow: 0 0 5px 2px var(--clr-visited-end);
-	}
-
-	75% {
-		transform: scale(1) translateY(0);
-		box-shadow: none;
-	}
 	100% {
 		background-color: var(--clr-cell-outline);
-	}
-}
-
-.short-path {
-	background-color: var(--clr-cell-shortest-path);
-	animation: shortestPath 1500ms ease-out forwards;
-}
-
-@keyframes shortestPath {
-	0% {
-		background-color: var(--clr-cell-shortest-path-start);
-		box-shadow: 0 0 5px var(--clr-cell-shortest-path-start),
-			0 0 10px var(--clr-cell-shortest-path-start);
-		border-radius: 50%;
-		transform: scale(0.4);
-	}
-	50% {
-		box-shadow: 0 0 7px var(--clr-cell-shortest-path),
-			0 0 15px var(--clr-cell-shortest-path);
-		transform: translateY(-5px);
-	}
-
-	100% {
-		box-shadow: none;
-		transform: scale(1) translateY(0);
 	}
 }
