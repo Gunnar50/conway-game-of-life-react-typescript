@@ -66,7 +66,7 @@ function NavBar({
 						</a>
 					</li>
 					<li>
-						<a href="#" onClick={() => handlePattern("snark loop")}>
+						<a href="#" onClick={() => handlePattern("glider")}>
 							Pattern
 						</a>
 					</li>
