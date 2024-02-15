@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { checkNeighbours, randomizeGrid } from "../../utils/checkNeighbours";
+import { nextGeneration, randomizeGrid } from "../../utils/checkNeighbours";
 import { applyPattern } from "../../utils/patterns";
 import Cell, { CellState } from "../Cell/Cell";
 import Nav from "../Nav/Nav";
@@ -49,30 +49,16 @@ function Grid({ numRows, numCols }: GridProps) {
 		setGrid(initializeGrid());
 	}, [numRows, numCols]);
 
-	function nextGeneration() {
-		const nextGrid = grid.map((row, x) =>
-			row.map((cell, y) => {
-				const aliveNeighbors = checkNeighbours(grid, { x, y });
-
-				// Apply the Game of Life rules here directly
-				if (cell.isAlive && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
-					return { ...cell, isAlive: false };
-				} else if (!cell.isAlive && aliveNeighbors === 3) {
-					return { ...cell, isAlive: true };
-				}
-				return cell;
-			})
-		);
-
+	function handleNextGeneration() {
 		// update the state with the new grid
-		setGrid(nextGrid);
+		setGrid(nextGeneration(grid));
 		setGenerations((gen) => gen + 1);
 	}
 
 	useEffect(() => {
-		let interval: number | undefined;
+		let interval: NodeJS.Timeout;
 		if (startGame) {
-			interval = setInterval(nextGeneration, speed);
+			interval = setInterval(handleNextGeneration, speed);
 		}
 
 		// Cleanup interval
@@ -113,7 +99,7 @@ function Grid({ numRows, numCols }: GridProps) {
 				setStartGame={setStartGame}
 				clearCells={clearCells}
 				randomizeGrid={handleRandomizeGrid}
-				nextGeneration={nextGeneration}
+				nextGeneration={handleNextGeneration}
 				setSpeed={setSpeed}
 				generations={generations}
 				handlePattern={handlePattern}
