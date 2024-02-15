@@ -1,5 +1,25 @@
 import { GridState } from "../components/Grid/Grid";
 
+export function nextGeneration(grid: GridState) {
+	return grid.map((row, x) =>
+		row.map((cell, y) => {
+			const aliveNeighbors = checkNeighbours(grid, { x, y });
+
+			// apply the Game of Life rules
+			// Any live cell with fewer than two live neighbours dies (referred to as underpopulation).
+			// Any live cell with more than three live neighbours dies (referred to as overpopulation).
+			// Any live cell with two or three live neighbours lives, unchanged, to the next generation.
+			// Any dead cell with exactly three live neighbours comes to life.
+			if (cell.isAlive && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
+				return { ...cell, isAlive: false };
+			} else if (!cell.isAlive && aliveNeighbors === 3) {
+				return { ...cell, isAlive: true };
+			}
+			return cell;
+		})
+	);
+}
+
 export function checkNeighbours(
 	grid: GridState,
 	position: { x: number; y: number }
