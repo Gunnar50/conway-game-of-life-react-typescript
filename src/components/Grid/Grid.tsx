@@ -85,10 +85,12 @@ function Grid({ numRows, numCols }: GridProps) {
 	}
 
 	function handleRandomizeGrid() {
+		clearCells();
 		setGrid(randomizeGrid(grid));
 	}
 
-	function handlePattern(patternName: string) {
+	function handlePatternChange(patternName: string) {
+		clearCells();
 		setGrid(applyPattern(grid, patternName));
 	}
 
@@ -102,7 +104,7 @@ function Grid({ numRows, numCols }: GridProps) {
 				nextGeneration={handleNextGeneration}
 				setSpeed={setSpeed}
 				generations={generations}
-				handlePattern={handlePattern}
+				handlePatternChange={handlePatternChange}
 			/>
 
 			<div className="grid">
