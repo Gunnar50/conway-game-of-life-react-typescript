@@ -8,7 +8,7 @@ interface NavProps {
 	nextGeneration: () => void;
 	setSpeed: (value: number) => void;
 	generations: number;
-	handlePattern: (patternName: string) => void;
+	handlePatternChange: (patternName: string) => void;
 }
 
 function NavBar({
@@ -19,7 +19,7 @@ function NavBar({
 	randomizeGrid,
 	setSpeed,
 	generations,
-	handlePattern,
+	handlePatternChange,
 }: NavProps) {
 	function handleSpeedChange(e: React.ChangeEvent<HTMLSelectElement>) {
 		const value = e.target.value;
@@ -66,28 +66,43 @@ function NavBar({
 						</a>
 					</li>
 					<li>
-						<a href="#" onClick={() => handlePattern("glider")}>
-							Pattern
-						</a>
-					</li>
-					<li>
 						<p>Generations: {generations}</p>
 					</li>
 				</ul>
-				<div>
-					<select
-						className="speed-select"
-						defaultValue="normal"
-						onChange={handleSpeedChange}
-					>
-						<option value="" disabled>
-							Select Speed
-						</option>
-						<option value="very-slow">Very Slow</option>
-						<option value="slow">Slow</option>
-						<option value="normal">Normal</option>
-						<option value="fast">Fast</option>
-					</select>
+				<div className="nav-select">
+					<div>
+						<label htmlFor="speed-select">Choose Pattern</label>
+						<select
+							className="speed-select"
+							defaultValue=""
+							onChange={(e) => handlePatternChange(e.target.value)}
+						>
+							<option value="" disabled>
+								Choose Pattern
+							</option>
+							<option value="glider">Glider</option>
+							<option value="copperhead">Copperhead</option>
+							<option value="gosper glider gun">Gosper Glider Gun</option>
+							{/* <option value="snark loop">Snark Loop</option> */}
+						</select>
+					</div>
+
+					<div>
+						<label htmlFor="speed-select">Speed</label>
+						<select
+							className="speed-select"
+							defaultValue="normal"
+							onChange={handleSpeedChange}
+						>
+							<option value="" disabled>
+								Select Speed
+							</option>
+							<option value="very-slow">Very Slow</option>
+							<option value="slow">Slow</option>
+							<option value="normal">Normal</option>
+							<option value="fast">Fast</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
