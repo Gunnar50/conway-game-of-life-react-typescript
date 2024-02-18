@@ -37,9 +37,11 @@ export function applyPattern(grid: GridState, patternName: string) {
 		0
 	);
 
+	// calculate the row and col based on the grid size
 	const startRow = Math.floor((grid.length - patternHeight) / 2);
 	const startCol = Math.floor((grid[0].length - patternWidth) / 2);
 
+	// add the pattern to the grid
 	for (let row = 0; row < patternHeight; row++) {
 		for (let col = 0; col < patternWidth; col++) {
 			const gridRow = startRow + row;
