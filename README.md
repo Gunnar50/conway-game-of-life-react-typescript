@@ -13,9 +13,8 @@ More information can be found on the official website: https://conwaylife.com/
 
 ## TODO
 
-- tests for algorithm
 - ability to change grid size
-- add patterns
+- have "infinite" grid where users can drag the grid around
 
 ## 🔧 Installation and Setup
 
@@ -47,6 +46,12 @@ Open localhost on port 5173 on a browser window
 
 ```
 http://localhost:5173/
+```
+
+For testing run
+
+```
+npm test
 ```
 
 ## 🛠️ Technology Stack
