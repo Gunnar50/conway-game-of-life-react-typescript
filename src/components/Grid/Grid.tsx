@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { nextGeneration, randomizeGrid } from "../../utils/checkNeighbours";
+import { nextGeneration } from "../../utils/checkNeighbours";
+import { clearGrid, randomizeGrid } from "../../utils/gridUtils";
 import { applyPattern } from "../../utils/patterns";
 import Cell, { CellState } from "../Cell/Cell";
 import Nav from "../Nav/Nav";
@@ -14,11 +15,17 @@ interface GridProps {
 	numCols: number;
 }
 
+interface Trigger {
+	type: "random" | "pattern";
+	patternName?: string;
+}
+
 function Grid({ numRows, numCols }: GridProps) {
 	const [generations, setGenerations] = useState(0);
 	const [grid, setGrid] = useState<GridState>([]);
 	const [startGame, setStartGame] = useState(false);
 	const [speed, setSpeed] = useState(initialSpeed);
+	const [updateTrigger, setUpdateTrigger] = useState<Trigger | null>(null);
 
 	function initializeGrid(): GridState {
 		// initialize the grid state with an empty array
@@ -66,7 +73,8 @@ function Grid({ numRows, numCols }: GridProps) {
 	}, [startGame, grid, speed]);
 
 	function clearCells(): void {
-		setGrid(initializeGrid());
+		console.log("clearCells");
+		setGrid(clearGrid(grid));
 		setGenerations(0);
 		setStartGame(false);
 	}
@@ -86,13 +94,27 @@ function Grid({ numRows, numCols }: GridProps) {
 
 	function handleRandomizeGrid() {
 		clearCells();
-		setGrid(randomizeGrid(grid));
+		setUpdateTrigger({ type: "random" });
 	}
 
 	function handlePatternChange(patternName: string) {
 		clearCells();
-		setGrid(applyPattern(grid, patternName));
+		setUpdateTrigger({ type: "pattern", patternName });
 	}
+
+	useEffect(() => {
+		if (updateTrigger) {
+			if (updateTrigger.type === "random") {
+				setGrid(randomizeGrid(grid));
+			} else if (
+				updateTrigger.type === "pattern" &&
+				updateTrigger.patternName
+			) {
+				setGrid(applyPattern(grid, updateTrigger.patternName));
+			}
+			setUpdateTrigger(null); // Reset trigger
+		}
+	}, [updateTrigger, grid]);
 
 	return (
 		<>
