@@ -5,7 +5,7 @@ import Grid from "./components/Grid/Grid";
 export type GridState = CellState[][];
 
 function App() {
-	const navbarHeight = 150;
+	const navbarHeight = 200;
 	const [dimensions, setDimensions] = useState({ height: 5, width: 5 });
 
 	useEffect(() => {
